@@ -154,27 +154,18 @@
         <section id="progress" class="section">
             <div class="container">
                 <h2>Your Progress</h2>
-                <div class="progress-container">
-                    <div class="progress-item">
+                <div class="progress-grid">
+                    <div class="progress-card" style="background-color: #f5f5f5;">
                         <h3>Network Security</h3>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 80%"></div>
-                        </div>
-                        <p>80% Complete</p>
+                        <canvas id="network-security-chart"></canvas>
                     </div>
-                    <div class="progress-item">
+                    <div class="progress-card" style="background-color: #e6f7ff;">
                         <h3>Cloud Computing</h3>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 60%"></div>
-                        </div>
-                        <p>60% Complete</p>
+                        <canvas id="cloud-computing-chart"></canvas>
                     </div>
-                    <div class="progress-item">
+                    <div class="progress-card" style="background-color: #fff5e6;">
                         <h3>Cybersecurity Fundamentals</h3>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 90%"></div>
-                        </div>
-                        <p>90% Complete</p>
+                        <canvas id="cybersecurity-chart"></canvas>
                     </div>
                 </div>
             </div>
@@ -188,5 +179,67 @@
     </footer>
 
     <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx1 = document.getElementById('network-security-chart').getContext('2d');
+        const networkSecurityChart = new Chart(ctx1, {
+            type: 'doughnut',
+            data: {
+                labels: ['Completed', 'Remaining'],
+                datasets: [{
+                    data: [80, 20],
+                    backgroundColor: ['#8b0000', '#cccccc']
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top'
+                    }
+                }
+            }
+        });
+
+        const ctx2 = document.getElementById('cloud-computing-chart').getContext('2d');
+        const cloudComputingChart = new Chart(ctx2, {
+            type: 'doughnut',
+            data: {
+                labels: ['Completed', 'Remaining'],
+                datasets: [{
+                    data: [60, 40],
+                    backgroundColor: ['#8b0000', '#cccccc']
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top'
+                    }
+                }
+            }
+        });
+
+        const ctx3 = document.getElementById('cybersecurity-chart').getContext('2d');
+        const cybersecurityChart = new Chart(ctx3, {
+            type: 'doughnut',
+            data: {
+                labels: ['Completed', 'Remaining'],
+                datasets: [{
+                    data: [90, 10],
+                    backgroundColor: ['#8b0000', '#cccccc']
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top'
+                    }
+                }
+            }
+        });
+    </script>
 </body>
 </html>
