@@ -432,12 +432,12 @@ h2 {
 }
 
 .flashcard-front {
-    background-color: #8b0000; /* Changed to a less bright shade */
+    background-color: #ffc0cb; /* Changed to pink */
     color: var(--white);
 }
 
 .flashcard-back {
-    background-color: #f5f5f5; /* Changed to a neutral light gray */
+    background-color: #ffe4e1; /* Light pink for the back */
     color: var(--text-dark);
     transform: rotateY(180deg);
 }
