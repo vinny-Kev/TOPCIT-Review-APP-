@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOPCIT Review App</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">ITCS Review</h1>
+            <nav class="nav">
+                <button class="nav-btn active" data-section="dashboard">Dashboard</button>
+                <button class="nav-btn" data-section="quiz">Quiz</button>
+                <button class="nav-btn" data-section="tests">Tests</button>
+                <button class="nav-btn" data-section="flashcards">Flashcards</button>
+                <button class="nav-btn" data-section="progress">Progress</button>
+            </nav>
+            <button class="theme-toggle" id="theme-toggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="main">
+        <section id="dashboard" class="section active">
+            <div class="container">
+                <h2>Welcome to ITCS Certification Review</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <i class="fas fa-brain"></i>
+                        <h3>Topics Covered</h3>
+                        <p>15</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-question-circle"></i>
+                        <h3>Questions</h3>
+                        <p>500+</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-trophy"></i>
+                        <h3>High Score</h3>
+                        <p>95%</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-clock"></i>
+                        <h3>Study Time</h3>
+                        <p>24h</p>
+                    </div>
+                </div>
+                <div class="quick-actions">
+                    <button class="action-btn primary">Start Quiz</button>
+                    <button class="action-btn secondary">Review Flashcards</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="quiz" class="section">
+            <div class="container">
+                <h2>Quiz Mode</h2>
+                <div class="quiz-container">
+                    <div class="question-card">
+                        <h3>Question 1 of 10</h3>
+                        <p>What is the primary function of a firewall in network security?</p>
+                        <div class="options">
+                            <button class="option-btn">To monitor network traffic</button>
+                            <button class="option-btn">To block unauthorized access</button>
+                            <button class="option-btn">To encrypt data</button>
+                            <button class="option-btn">To store data</button>
+                        </div>
+                    </div>
+                    <div class="quiz-controls">
+                        <button class="control-btn prev">Previous</button>
+                        <button class="control-btn next">Next</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tests" class="section">
+            <div class="container">
+                <h2>Practice Tests</h2>
+                <div class="category-grid" id="category-grid">
+                    <!-- Categories will be populated by JS -->
+                </div>
+                <div class="test-container" id="test-container" style="display: none;">
+                    <div class="test-header">
+                        <h3 id="test-category">Category</h3>
+                        <div class="test-progress">
+                            <span id="current-question">1</span> / <span id="total-questions">10</span>
+                        </div>
+                        <button class="back-btn" id="back-to-categories">Back to Categories</button>
+                    </div>
+                    <div class="question-card" id="test-question-card">
+                        <p id="test-question">Question text here</p>
+                        <textarea id="answer-input" placeholder="Type your answer here..." rows="4"></textarea>
+                    </div>
+                    <div class="test-controls">
+                        <button class="control-btn" id="prev-question">Previous</button>
+                        <button class="control-btn" id="next-question">Next</button>
+                        <button class="control-btn primary" id="submit-test">Submit Test</button>
+                    </div>
+                    <div class="test-results" id="test-results" style="display: none;">
+                        <h3>Test Completed!</h3>
+                        <p>You answered <span id="answered-count">0</span> out of <span id="total-count">10</span> questions.</p>
+                        <p>Time taken: <span id="time-taken">0:00</span></p>
+                        <button class="control-btn" id="retake-test">Retake Test</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="flashcards" class="section">
+            <div class="container">
+                <h2>Flashcards</h2>
+                <div class="flashcard-container">
+                    <div class="flashcard" id="flashcard">
+                        <div class="flashcard-front">
+                            <h3>What is TCP/IP?</h3>
+                        </div>
+                        <div class="flashcard-back">
+                            <p>Transmission Control Protocol/Internet Protocol - the basic communication language or protocol of the Internet.</p>
+                        </div>
+                    </div>
+                    <div class="flashcard-controls">
+                        <button class="control-btn flip">Flip</button>
+                        <button class="control-btn next-card">Next</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="progress" class="section">
+            <div class="container">
+                <h2>Your Progress</h2>
+                <div class="progress-container">
+                    <div class="progress-item">
+                        <h3>Network Security</h3>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 80%"></div>
+                        </div>
+                        <p>80% Complete</p>
+                    </div>
+                    <div class="progress-item">
+                        <h3>Cloud Computing</h3>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 60%"></div>
+                        </div>
+                        <p>60% Complete</p>
+                    </div>
+                    <div class="progress-item">
+                        <h3>Cybersecurity Fundamentals</h3>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 90%"></div>
+                        </div>
+                        <p>90% Complete</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
