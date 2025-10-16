@@ -115,6 +115,26 @@ Computer Science Fundamentals Deep Dive,Describe the function of the BIOS/UEFI.
 Computer Science Fundamentals Deep Dive,What is thrashing?
 Computer Science Fundamentals Deep Dive,Differentiate between RISC and CISC architectures.`;
 
+// Sidebar Toggle
+const sidebarToggle = document.getElementById('sidebar-toggle');
+const sidebar = document.querySelector('.sidebar');
+const main = document.querySelector('.main');
+
+sidebarToggle.addEventListener('click', () => {
+    sidebar.classList.toggle('active');
+    main.classList.toggle('sidebar-active');
+    sidebarToggle.innerHTML = sidebar.classList.contains('active') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+});
+
+// Close sidebar when clicking outside
+document.addEventListener('click', (e) => {
+    if (!sidebar.contains(e.target) && !sidebarToggle.contains(e.target) && sidebar.classList.contains('active')) {
+        sidebar.classList.remove('active');
+        main.classList.remove('sidebar-active');
+        sidebarToggle.innerHTML = '<i class="fas fa-bars"></i>';
+    }
+});
+
 // Parse test data
 let categories = {};
 let currentTest = null;
@@ -253,13 +273,37 @@ const flashcard = document.getElementById('flashcard');
 const flipBtn = document.querySelector('.flip');
 const nextCardBtn = document.querySelector('.next-card');
 
+let currentFlashcardIndex = 0;
+let allQuestions = [];
+
+function initializeFlashcards() {
+    // Collect all questions from test data
+    Object.values(categories).forEach(categoryQuestions => {
+        allQuestions = allQuestions.concat(categoryQuestions);
+    });
+    // Shuffle questions
+    allQuestions = allQuestions.sort(() => Math.random() - 0.5);
+}
+
+function updateFlashcard() {
+    if (allQuestions.length > 0) {
+        const question = allQuestions[currentFlashcardIndex];
+        const frontElement = flashcard.querySelector('.flashcard-front h3');
+        const backElement = flashcard.querySelector('.flashcard-back p');
+        
+        frontElement.textContent = question;
+        backElement.textContent = "Think about your answer, then flip to see a hint or explanation.";
+    }
+}
+
 flipBtn.addEventListener('click', () => {
     flashcard.classList.toggle('flipped');
 });
 
 nextCardBtn.addEventListener('click', () => {
     flashcard.classList.remove('flipped');
-    // In a real app, this would load the next flashcard
+    currentFlashcardIndex = (currentFlashcardIndex + 1) % allQuestions.length;
+    updateFlashcard();
     setTimeout(() => {
         flashcard.classList.add('flipped');
     }, 100);
@@ -334,6 +378,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize tests
     parseTestData();
     populateCategories();
+    initializeFlashcards();
+    updateFlashcard();
 
     // Test event listeners
     document.getElementById('next-question').addEventListener('click', nextQuestion);

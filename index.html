@@ -4,19 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TOPCIT Review App</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍎</text></svg>">
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <header class="header">
+        <button class="sidebar-toggle" id="sidebar-toggle">
+            <i class="fas fa-bars"></i>
+        </button>
         <div class="container">
-            <h1 class="logo">ITCS Review</h1>
+            <h1 class="logo">TOPCIT Reviewer App</h1>
             <nav class="nav">
                 <button class="nav-btn active" data-section="dashboard">Dashboard</button>
-                <button class="nav-btn" data-section="quiz">Quiz</button>
-                <button class="nav-btn" data-section="tests">Tests</button>
                 <button class="nav-btn" data-section="flashcards">Flashcards</button>
+                <button class="nav-btn" data-section="tests">Tests</button>
                 <button class="nav-btn" data-section="progress">Progress</button>
             </nav>
             <button class="theme-toggle" id="theme-toggle">
@@ -24,6 +27,43 @@
             </button>
         </div>
     </header>
+
+    <aside class="sidebar">
+        <div class="sidebar-content">
+            <div class="sidebar-section">
+                <h3><i class="fas fa-cog"></i> Settings</h3>
+                <ul>
+                    <li><a href="#notifications">Notifications</a></li>
+                    <li><a href="#preferences">Study Preferences</a></li>
+                    <li><a href="#language">Language</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3><i class="fas fa-credit-card"></i> Payment</h3>
+                <ul>
+                    <li><a href="#subscription">Subscription</a></li>
+                    <li><a href="#billing">Billing History</a></li>
+                    <li><a href="#upgrade">Upgrade Plan</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3><i class="fas fa-user"></i> Account</h3>
+                <ul>
+                    <li><a href="#profile">Profile</a></li>
+                    <li><a href="#progress">My Progress</a></li>
+                    <li><a href="#achievements">Achievements</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3><i class="fas fa-shield-alt"></i> Security</h3>
+                <ul>
+                    <li><a href="#password">Change Password</a></li>
+                    <li><a href="#privacy">Privacy Settings</a></li>
+                    <li><a href="#data">Data & Privacy</a></li>
+                </ul>
+            </div>
+        </div>
+    </aside>
 
     <main class="main">
         <section id="dashboard" class="section active">
@@ -52,29 +92,27 @@
                     </div>
                 </div>
                 <div class="quick-actions">
-                    <button class="action-btn primary">Start Quiz</button>
-                    <button class="action-btn secondary">Review Flashcards</button>
+                    <button class="action-btn primary" onclick="document.querySelector('[data-section=flashcards]').click()">Start Flashcards</button>
+                    <button class="action-btn secondary" onclick="document.querySelector('[data-section=tests]').click()">Take Tests</button>
                 </div>
             </div>
         </section>
 
-        <section id="quiz" class="section">
+        <section id="flashcards" class="section">
             <div class="container">
-                <h2>Quiz Mode</h2>
-                <div class="quiz-container">
-                    <div class="question-card">
-                        <h3>Question 1 of 10</h3>
-                        <p>What is the primary function of a firewall in network security?</p>
-                        <div class="options">
-                            <button class="option-btn">To monitor network traffic</button>
-                            <button class="option-btn">To block unauthorized access</button>
-                            <button class="option-btn">To encrypt data</button>
-                            <button class="option-btn">To store data</button>
+                <h2>Flashcards</h2>
+                <div class="flashcard-container">
+                    <div class="flashcard" id="flashcard">
+                        <div class="flashcard-front">
+                            <h3>What is TCP/IP?</h3>
+                        </div>
+                        <div class="flashcard-back">
+                            <p>Transmission Control Protocol/Internet Protocol - the basic communication language or protocol of the Internet.</p>
                         </div>
                     </div>
-                    <div class="quiz-controls">
-                        <button class="control-btn prev">Previous</button>
-                        <button class="control-btn next">Next</button>
+                    <div class="flashcard-controls">
+                        <button class="control-btn flip">Flip</button>
+                        <button class="control-btn next-card">Next</button>
                     </div>
                 </div>
             </div>
@@ -113,26 +151,6 @@
             </div>
         </section>
 
-        <section id="flashcards" class="section">
-            <div class="container">
-                <h2>Flashcards</h2>
-                <div class="flashcard-container">
-                    <div class="flashcard" id="flashcard">
-                        <div class="flashcard-front">
-                            <h3>What is TCP/IP?</h3>
-                        </div>
-                        <div class="flashcard-back">
-                            <p>Transmission Control Protocol/Internet Protocol - the basic communication language or protocol of the Internet.</p>
-                        </div>
-                    </div>
-                    <div class="flashcard-controls">
-                        <button class="control-btn flip">Flip</button>
-                        <button class="control-btn next-card">Next</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <section id="progress" class="section">
             <div class="container">
                 <h2>Your Progress</h2>
@@ -162,6 +180,12 @@
             </div>
         </section>
     </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>© Built by Kevin Maglaqui</p>
+        </div>
+    </footer>
 
     <script src="script.js"></script>
 </body>
