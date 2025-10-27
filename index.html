@@ -70,6 +70,7 @@
         <section id="dashboard" class="section active">
             <div class="container">
                 <h2>Welcome to ITCS Certification Review</h2>
+                <p class="welcome-text">Breeze through topics with short sessions — icons and charts make it easier to pick what to study next.</p>
                 <div class="stats-grid">
                     <div class="stat-card">
                         <i class="fas fa-brain"></i>
@@ -95,6 +96,10 @@
                 <div class="quick-actions">
                     <button class="action-btn primary" onclick="document.querySelector('[data-section=flashcards]').click()">Start Flashcards</button>
                     <button class="action-btn secondary" onclick="document.querySelector('[data-section=tests]').click()">Take Tests</button>
+                </div>
+                <div class="dashboard-chart" style="max-width:960px;margin:1.5rem auto;text-align:left;">
+                    <h3 style="margin:0 0 0.5rem 0;color:var(--text-dark);font-size:1.05rem;">Topics overview</h3>
+                    <canvas id="dashboard-topics-chart"></canvas>
                 </div>
             </div>
         </section>
@@ -211,8 +216,8 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
     <script>
         const ctx1 = document.getElementById('network-security-chart').getContext('2d');
         const networkSecurityChart = new Chart(ctx1, {

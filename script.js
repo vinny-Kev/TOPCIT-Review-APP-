@@ -296,6 +296,50 @@ function updateFlashcard() {
     }
 }
 
+// Dashboard chart: show number of questions per topic as a simple visual tracker
+function initDashboardChart() {
+    const canvas = document.getElementById('dashboard-topics-chart');
+    if (!canvas) return;
+
+    const labels = Object.keys(categories);
+    const data = labels.map(lbl => categories[lbl].length);
+
+    const bg = labels.map((_, i) => i % 2 === 0 ? '#8b0000' : '#d4a5a5');
+
+    // Destroy previous chart instance if present to avoid duplicates
+    if (canvas._chartInstance) {
+        canvas._chartInstance.destroy();
+    }
+
+    const ctx = canvas.getContext('2d');
+    canvas._chartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Questions',
+                data: data,
+                backgroundColor: bg,
+                borderColor: '#333',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    ticks: { precision: 0 }
+                }
+            },
+            plugins: {
+                legend: { display: false }
+            }
+        }
+    });
+}
+
 flipBtn.addEventListener('click', () => {
     flashcard.classList.toggle('flipped');
 });
@@ -378,6 +422,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize tests
     parseTestData();
     populateCategories();
+    // render dashboard topics chart (visual tracker)
+    initDashboardChart();
     initializeFlashcards();
     updateFlashcard();
 

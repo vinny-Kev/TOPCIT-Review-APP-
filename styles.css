@@ -22,6 +22,11 @@
     margin-top: 0; /* No need for top margin now */
 }
 
+/* Make box-sizing predictable so inputs and cards align inside their containers */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
 .sidebar-section {
     margin-bottom: 1.5rem; /* Tighter spacing */
 }
@@ -326,6 +331,9 @@ h2 {
     margin-bottom: 1.5rem; /* Tighter margin */
     animation: slideInLeft 0.5s ease-out;
     border: 2px solid #333;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
 }
 
 .question-card h3 {
@@ -500,6 +508,10 @@ h2 {
 .category-card p {
     color: var(--text-dark);
     font-size: 0.9rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .test-container {
@@ -557,6 +569,8 @@ h2 {
     font-size: 1rem;
     resize: vertical;
     transition: var(--transition);
+    display: block;
+    margin-top: 0.5rem;
 }
 
 #answer-input:focus {
@@ -642,6 +656,10 @@ h2 {
     margin-bottom: 1rem;
     font-size: 1rem;
     color: var(--dark-gray);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .audio-btn {
