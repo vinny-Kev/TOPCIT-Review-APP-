@@ -1,0 +1,16 @@
+node_modules/
+client/node_modules/
+server/node_modules/
+.env
+server/.env
+*.log
+dist/
+build/
+client/dist/
+server/dist/
+server/prisma/dev.db
+server/prisma/*.db-journal
+server/uploads/
+*.sqlite
+*.db
+.DS_Store

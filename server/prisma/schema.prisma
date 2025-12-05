@@ -1,0 +1,133 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int              @id @default(autoincrement())
+  name         String
+  email        String           @unique
+  passwordHash String
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+  role         String           @default("USER")
+  progress     ProgressRecord[]
+  sessions     TestSession[]
+  notes        Note[]
+  documents    UploadedDocument[]
+  customFlashcards     CustomFlashcard[]
+  customExamQuestions  CustomExamQuestion[]
+}
+
+model Category {
+  id          Int         @id @default(autoincrement())
+  name        String      @unique
+  description String?
+  color       String?
+  questions   Question[]
+  progress    ProgressRecord[]
+  sessions    TestSession[]
+}
+
+model Question {
+  id         Int      @id @default(autoincrement())
+  prompt     String
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId Int
+  answer     String?
+  options    String?
+  correctOptionIndex Int?
+  createdAt DateTime @default(now())
+  responses  TestResponse[]
+}
+
+model ProgressRecord {
+  id         Int      @id @default(autoincrement())
+  user       User     @relation(fields: [userId], references: [id])
+  userId     Int
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId Int
+  completed  Int      @default(0)
+  total      Int      @default(0)
+  updatedAt  DateTime @updatedAt
+
+  @@unique([userId, categoryId])
+}
+
+model TestSession {
+  id          Int      @id @default(autoincrement())
+  user        User     @relation(fields: [userId], references: [id])
+  userId      Int
+  category    Category @relation(fields: [categoryId], references: [id])
+  categoryId  Int
+  answered    Int      @default(0)
+  total       Int      @default(0)
+  correct     Int      @default(0)
+  scorePercent Int     @default(0)
+  durationSec Int      @default(0)
+  createdAt   DateTime @default(now())
+  aiInsights  String?
+  responses   TestResponse[]
+}
+
+model TestResponse {
+  id               Int      @id @default(autoincrement())
+  session          TestSession @relation(fields: [sessionId], references: [id])
+  sessionId        Int
+  question         Question @relation(fields: [questionId], references: [id])
+  questionId       Int
+  selectedIndex    Int?
+  isCorrect        Boolean @default(false)
+  createdAt        DateTime @default(now())
+}
+
+model Note {
+  id                Int               @id @default(autoincrement())
+  user              User              @relation(fields: [userId], references: [id])
+  userId            Int
+  title             String
+  content           String
+  sourceDocument    UploadedDocument? @relation(fields: [sourceDocumentId], references: [id])
+  sourceDocumentId  Int?
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+}
+
+model UploadedDocument {
+  id           Int             @id @default(autoincrement())
+  user         User            @relation(fields: [userId], references: [id])
+  userId       Int
+  originalName String
+  storedName   String
+  mimeType     String
+  size         Int
+  status       String          @default("PENDING")
+  summary      String?
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+  notes        Note[]
+}
+
+model CustomFlashcard {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  prompt    String
+  answer    String
+  tags      String?
+  createdAt DateTime @default(now())
+}
+
+model CustomExamQuestion {
+  id           Int      @id @default(autoincrement())
+  user         User     @relation(fields: [userId], references: [id])
+  userId       Int
+  question     String
+  sampleAnswer String?
+  difficulty   String?
+  createdAt    DateTime @default(now())
+}
